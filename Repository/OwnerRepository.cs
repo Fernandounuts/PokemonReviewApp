@@ -35,6 +35,6 @@ public class OwnerRepository : IOwner {
     }
 
     public bool OwnerExists(int ownerId) {
-        throw new NotImplementedException();
+        return _context.Owners.Any(o => o.Id == ownerId);
     }
 }
