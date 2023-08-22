@@ -24,10 +24,44 @@ public class CountryController : Controller {
     public IActionResult GetCategories() {
         var countries = _mapper.Map<ICollection<CountryDto>>(_countryRepository.GetCountries());
 
-        if (!ModelState.IsValid) {
+        if (!ModelState.IsValid) 
             return BadRequest(ModelState);
-        }
-        return Ok(categories);
+        
+        return Ok(countries);
     }
+
+    [HttpGet("{countryId}")]
+    [ProducesResponseType(200, Type = typeof(Country))]
+    [ProducesResponseType(400)]
+    public IActionResult GetCountry(int countryId) {
+        if (!_countryRepository.CountryExists(countryId)) 
+            return NotFound();
+
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var country = _mapper.Map<CountryDto>(_countryRepository.GetCountry(countryId));
+
+        return Ok(country);
+    }
+
+    [HttpGet("/owners/{ownerId}")]
+    [ProducesResponseType(200, Type = typeof(Country))]
+    [ProducesResponseType(400)]
+    public IActionResult GetCountryOfAnOwner(int ownerId) {
+        var country = _mapper.Map<CountryDto>(_countryRepository.GetCountryByOwner(ownerId));
+        if (!ModelState.IsValid)
+            return BadRequest();
+
+        if (!_countryRepository.CountryExists(ownerId))
+            return NotFound();
+
+        return Ok(country);
+
+    }
+
+
+
+
 
 }
