@@ -20,6 +20,8 @@ builder.Services.AddScoped<IPokemon, PokemonRepository>();
 builder.Services.AddScoped<IOwner, OwnerRepository>();
 builder.Services.AddScoped<ICategory, CategoryRepository>();
 builder.Services.AddScoped<ICountry, CountryRepository>();
+builder.Services.AddScoped<IReview, ReviewRepository>();
+builder.Services.AddScoped<IReviwer, ReviwerRepository>();
 
 var app = builder.Build();
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
