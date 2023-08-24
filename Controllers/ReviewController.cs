@@ -47,7 +47,7 @@ public class ReviewController : Controller{
     [ProducesResponseType(200, Type = typeof(Review))]
     [ProducesResponseType(400)]
     public IActionResult GetReviewsForAPokemon(int pokeId) {
-        var review = _mapper.Map<List<Review>>(_reviewRepository.GetReviewsFromAPokemon(pokeId));
+        var review = _mapper.Map<List<ReviewDto>>(_reviewRepository.GetReviewsFromAPokemon(pokeId));
 
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
